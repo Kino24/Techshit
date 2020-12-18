@@ -11,46 +11,55 @@ type distance struct {
 	Y float64
 }
 
+var ch string
+
+//Stoichiometry
+var stoich = "S"
+
+// D2P Distance between two points
+var D2P = "DP"
+var quit = "XXX"
+
 func main() {
-	fmt.Println("Choose a calculator:")
-	fmt.Println("Stoichiometry[1] or Distance Between 2 points?[2]")
-	fmt.Println("Enter a number")
-	var ch int
-	fmt.Scanln(&ch)
+	for ch != quit {
+		fmt.Println(" ")
+		fmt.Println(" ")
+		fmt.Println("Choose a calculator:")
+		fmt.Println("Stoichiometry[S] or Distance Between 2 points?[DP]")
+		fmt.Println("Enter S or DP or XXX to exit the program")
+		fmt.Scanln(&ch)
+		if ch == D2P {
+			fmt.Println("Enter value for x1")
+			var x1 float64
+			fmt.Scanln(&x1)
+			fmt.Println("Enter value for y1")
+			var y1 float64
+			fmt.Scanln(&y1)
 
-	if ch == 2 {
-		fmt.Println("Enter value for x1")
-		var x1 float64
-		fmt.Scanln(&x1)
-		fmt.Println("Enter value for y1")
-		var y1 float64
-		fmt.Scanln(&y1)
+			v := distance{0, 0}
+			v.X = x1
+			v.Y = y1
 
-		v := distance{0, 0}
-		v.X = x1
-		v.Y = y1
+			fmt.Println("Enter value for x2")
+			var x2 float64
+			fmt.Scanln(&x2)
+			fmt.Println("Enter value for y2")
+			var y2 float64
+			fmt.Scanln(&y2)
 
-		fmt.Println("Enter value for x2")
-		var x2 float64
-		fmt.Scanln(&x2)
-		fmt.Println("Enter value for y2")
-		var y2 float64
-		fmt.Scanln(&y2)
+			b := distance{0, 0}
+			b.X = x2
+			b.Y = y2
 
-		b := distance{0, 0}
-		b.X = x2
-		b.Y = y2
-
-		var xans = (b.X - v.X)
-		var yans = (b.Y - v.Y)
-		var a = math.Pow(xans, 2)
-		var d = math.Pow(yans, 2)
-		var c = a + d
-		var ans = math.Sqrt(c)
-		fmt.Println("The distance between point", v, " and point", b, "is :")
-		fmt.Println(ans)
-	} else {
-		if ch == 1 {
+			var xans = (b.X - v.X)
+			var yans = (b.Y - v.Y)
+			var a = math.Pow(xans, 2)
+			var d = math.Pow(yans, 2)
+			var c = a + d
+			var ans = math.Sqrt(c)
+			fmt.Println("The distance between point", v, " and point", b, "is :")
+			fmt.Println(ans)
+		} else if ch == stoich {
 			var choice = 1
 			var choice2 = 2
 
@@ -83,44 +92,44 @@ func main() {
 				var finale = math.Round(moles2)
 
 				fmt.Println("The element contains ", finale, " moles.")
+			} else if find == choice2 {
+				fmt.Println("Enter grams of first element: ")
+				var g1 float32
+				fmt.Scanln(&g1)
+
+				fmt.Println("Enter enter molar mass of first element: ")
+				var mol1 float32
+				fmt.Scanln(&mol1)
+
+				var moles1 = g1 * 1 / mol1
+
+				fmt.Println("Enter Mole Ratio of second element: ")
+				var mr1 float32
+				fmt.Scanln(&mr1)
+
+				fmt.Println("Enter mole ratio of first element: ")
+				var mr2 float32
+				fmt.Scanln(&mr2)
+
+				var mr = mr1 / mr2
+				var moles2 = moles1 * mr
+
+				fmt.Println("Enter molar mass of second element")
+				var mol2 float32
+				fmt.Scanln(&mol2)
+
+				var mm = moles2 * mol2
+
+				fmt.Println("The element weighs ", mm, " grams.")
 			} else {
-				if find == choice2 {
-					fmt.Println("Enter grams of first element: ")
-					var g1 float32
-					fmt.Scanln(&g1)
-
-					fmt.Println("Enter enter molar mass of first element: ")
-					var mol1 float32
-					fmt.Scanln(&mol1)
-
-					var moles1 = g1 * 1 / mol1
-
-					fmt.Println("Enter Mole Ratio of second element: ")
-					var mr1 float32
-					fmt.Scanln(&mr1)
-
-					fmt.Println("Enter mole ratio of first element: ")
-					var mr2 float32
-					fmt.Scanln(&mr2)
-
-					var mr = mr1 / mr2
-					var moles2 = moles1 * mr
-
-					fmt.Println("Enter molar mass of second element")
-					var mol2 float32
-					fmt.Scanln(&mol2)
-
-					var mm = moles2 * mol2
-
-					fmt.Println("The element weighs ", mm, " grams.")
-				} else {
-					fmt.Println(" ")
-					fmt.Println(find, "is not part of the choices bitch!")
-				}
+				fmt.Println(" ")
+				fmt.Println(find, "is not part of the choices bitch!")
 			}
-		} else {
-			fmt.Println(ch, "is not part of the choices mother fu-!")
+		} else if ch != quit {
+			fmt.Println(ch, "is not part of the choices")
+		} else if ch == quit {
+			fmt.Println("Thank you for using the program")
+			break
 		}
-
 	}
 }
